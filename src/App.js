@@ -11,7 +11,7 @@ import SajdaView from './components/SajdaView';
 import SearchView from './components/SearchView';
 import Settings from './components/Settings';
 import ProgressTracker from './components/ProgressTracker';
-import './index.css';
+import './App.css';
 
 function App() {
   const [view, setView] = useState('surah');
@@ -50,14 +50,14 @@ function App() {
   }, [bookmarks, notes, progress]);
 
   return (
-    <div className={`min-h-screen ${settings.theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-100'}`}>
+    <div className={`app-container ${settings.theme}`}>
       <Navbar 
         setView={setView} 
         setSearchQuery={setSearchQuery} 
         bookmarks={bookmarks}
         setSelectedSurah={setSelectedSurah}
       />
-      <div className="container mx-auto p-4">
+      <div className="main-content">
         {view === 'surah' && (
           <SurahList 
             setSelectedSurah={setSelectedSurah} 
