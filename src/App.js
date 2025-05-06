@@ -32,7 +32,6 @@ function App() {
   });
   const [progress, setProgress] = useState({});
 
-  // Dark mode toggle function
   const toggleDarkMode = () => {
     setSettings((prev) => ({
       ...prev,
@@ -41,7 +40,6 @@ function App() {
   };
 
   useEffect(() => {
-    // Load saved data from localStorage
     const savedBookmarks = localStorage.getItem('bookmarks');
     const savedNotes = localStorage.getItem('notes');
     const savedProgress = localStorage.getItem('progress');
@@ -51,7 +49,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Save data to localStorage
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
     localStorage.setItem('notes', JSON.stringify(notes));
     localStorage.setItem('progress', JSON.stringify(progress));
