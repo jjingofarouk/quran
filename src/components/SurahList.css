@@ -1,0 +1,186 @@
+/* Import fonts from App.css for consistency */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+
+/* Root variables for consistency with App.css */
+:root {
+  --primary-beige: #F5F5DC;
+  --primary-green: #4CAF50;
+  --text-dark: #2E2E2E;
+  --text-light: #FFFFFF;
+  --background-dark: #1A1A1A;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --border-radius: 8px;
+  --font-roboto: 'Roboto', sans-serif;
+  --font-amiri: 'Amiri', serif;
+  --header-dark-brown: #3C2F2F;
+}
+
+/* Surah list container */
+.surah-list-container {
+  padding: 1.5rem;
+  animation: fadeIn 0.5s ease-in;
+}
+
+/* Surah list title */
+.surah-list-title {
+  font-family: var(--font-roboto);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-green);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.surah-list-container.dark .surah-list-title {
+  color: var(--text-light);
+}
+
+/* Surah list grid */
+.surah-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+/* Surah item */
+.surah-item {
+  background-color: #FFFFFF;
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  box-shadow: 0 2px 4px var(--shadow);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.surah-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px var(--shadow);
+}
+
+.surah-list-container.dark .surah-item {
+  background-color: #2E2E2E;
+}
+
+/* Surah details */
+.surah-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.surah-number-name {
+  font-family: var(--font-roboto);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.surah-list-container.dark .surah-number-name {
+  color: var(--text-light);
+}
+
+.surah-translation {
+  font-family: var(--font-roboto);
+  font-size: 0.9rem;
+  color: #666666;
+  margin-top: 0.25rem;
+}
+
+.surah-list-container.dark .surah-translation {
+  color: #A0A0A0;
+}
+
+/* Surah Arabic info */
+.surah-arabic-info {
+  text-align: right;
+  margin-top: 0.5rem;
+}
+
+.surah-arabic-name {
+  font-family: var(--font-amiri);
+  font-size: 1.5rem;
+  color: var(--primary-green);
+}
+
+.surah-ayah-count {
+  font-family: var(--font-roboto);
+  font-size: 0.9rem;
+  color: #666666;
+  margin-top: 0.25rem;
+}
+
+.surah-list-container.dark .surah-ayah-count {
+  color: #A0A0A0;
+}
+
+/* Surah meta */
+.surah-meta {
+  font-family: var(--font-roboto);
+  font-size: 0.85rem;
+  color: #666666;
+  margin-top: 0.75rem;
+  text-align: left;
+}
+
+.surah-list-container.dark .surah-meta {
+  color: #A0A0A0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .surah-list {
+    grid-template-columns: 1fr;
+  }
+
+  .surah-list-title {
+    font-size: 1.8rem;
+  }
+
+  .surah-number-name {
+    font-size: 1.1rem;
+  }
+
+  .surah-arabic-name {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .surah-list-container {
+    padding: 1rem;
+  }
+
+  .surah-list-title {
+    font-size: 1.5rem;
+  }
+
+  .surah-number-name {
+    font-size: 1rem;
+  }
+
+  .surah-translation {
+    font-size: 0.85rem;
+  }
+
+  .surah-arabic-name {
+    font-size: 1.2rem;
+  }
+
+  .surah-ayah-count {
+    font-size: 0.85rem;
+  }
+
+  .surah-meta {
+    font-size: 0.8rem;
+  }
+}
+
+/* Animation for view transitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
