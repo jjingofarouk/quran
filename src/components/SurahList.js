@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import './SurahList.css';
 
-function SurahList({ setSelectedSurah, setView, editions }) {
+function SurahList({ setSelectedSurah, editions }) {
   const [surahs, setSurahs] = useState([]);
 
   useEffect(() => {
@@ -24,72 +25,40 @@ function SurahList({ setSelectedSurah, setView, editions }) {
       englishName: surah.englishName,
       name: surah.name,
     });
-    setView('ayah');
   };
 
   return (
-    <div className="animate-fadeIn">
-      <h2 className="text-2xl font-bold mb-6 text-center">Surahs</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {surahs.map(surah => (
+    <div className="surah-list-container">
+      <h2 className="surah-list-title">Surahs</h2>
+      <div className="surah-list">
+        {surahs.map((surah) => (
           <div
             key={surah.number}
             onClick={() => handleSurahClick(surah)}
-            className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow hover:shadow-lg transition cursor-pointer"
+            className="surah-item"
           >
-            <div className="flex justify-between items-center">
-              <div>
-                <span className="text-lg font-semibold">{surah.number}. {surah.englishName}</span>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{surah.englishNameTranslation}</p>
-              </div>
-              <div className="text-right">
-                <p className="arabic text-lg">{surah.name}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{surah.numberOfAyahs} Ayahs</p>
-              </div>
+            <div className="surah-details">
+              <span className="surah-number-name">
+                {surah.number}. {surah.englishName}
+              </span>
+              <p className="surah-translation">
+                {surah.englishNameTranslation}
+              </p>
             </div>
-            <p className="text-sm mt-2">
-              {surah.revelationType} - {surah.number === 1 ? '7 Ayahs' : `${surah.numberOfAyahs} Ayahs`}
+            <div className="surah-arabic-info">
+              <p className="surah-arabic-name">{surah.name}</p>
+              <p className="surah-ayah-count">
+                {surah.numberOfAyahs} Ayahs
+              </p>
+            </div>
+            <p className="surah-meta">
+              {surah.revelationType} -{' '}
+              {surah.number === 1
+                ? '7 Ayahs'
+                : `${surah.numberOfAyahs} Ayahs`}
             </p>
           </div>
         ))}
-      </div>
-      <div className="mt-6 flex justify-center space-x-4">
-        <button
-          onClick={() => setView('juz')}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-        >
-          View Juz
-        </button>
-        <button
-          onClick={() => setView('manzil')}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-        >
-          View Manzil
-        </button>
-        <button
-          onClick={() => setView('ruku')}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-        >
-          View Ruku
-        </button>
-        <button
-          onClick={() => setView('page')}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-        >
-          View Page
-        </button>
-        <button
-          onClick={() => setView('hizb')}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-        >
-          View Hizb Quarter
-        </button>
-        <button
-          onClick={() => setView('sajda')}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-        >
-          View Sajda
-        </button>
       </div>
     </div>
   );
