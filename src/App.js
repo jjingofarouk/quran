@@ -67,7 +67,7 @@ function App() {
         <div className="main-content">
           {view === 'home' && (
             <div className="welcome-message">
-              <h1>Welcome to Wuran</h1>
+              <h1>Welcome to the Holy Quran</h1>
               <p>Select a section from the sidebar to begin exploring the Quran.</p>
             </div>
           )}
