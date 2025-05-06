@@ -1,4 +1,11 @@
 import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 import {
   Search,
   BookOpen,
@@ -6,8 +13,6 @@ import {
   Settings,
   Sun,
   Moon,
-  ChevronLeft,
-  ChevronRight,
   Home,
   Layers,
   BookMarked,
@@ -17,7 +22,7 @@ import {
   Award,
   FileText,
 } from 'lucide-react';
-import '../App.css'; // Import App.css instead of Sidebar.css
+import './App.css';
 
 const Sidebar = ({
   setView,
@@ -26,18 +31,15 @@ const Sidebar = ({
   setSelectedSurah,
   isDarkMode,
   toggleDarkMode,
-  children, // Add children prop
+  children,
 }) => {
-  const [isExpanded, setIsExpanded] = useState(true);
   const [searchInput, setSearchInput] = useState('');
-  const [showSearchBar, setShowSearchBar] = useState(false);
+  const expand = 'lg';
 
   const handleSearch = (e) => {
-    if (e.key === 'Enter') {
-      setSearchQuery(searchInput);
-      setView('search');
-      setShowSearchBar(false);
-    }
+    e.preventDefault();
+    setSearchQuery(searchInput);
+    setView('search');
   };
 
   const handleBookmarkClick = (bookmark) => {
@@ -46,122 +48,109 @@ const Sidebar = ({
   };
 
   const navItems = [
-    { title: 'Home', icon: <Home />, view: 'home' },
-    { title: 'Surahs', icon: <BookOpen />, view: 'surah' },
-    { title: 'Juz', icon: <Layers />, view: 'juz' },
-    { title: 'Manzil', icon: <Layout />, view: 'manzil' },
-    { title: 'Ruku', icon: <Grid3X3 />, view: 'ruku' },
-    { title: 'Page', icon: <FileText />, view: 'page' },
-    { title: 'Hizb', icon: <ScrollText />, view: 'hizb' },
-    { title: 'Sajda', icon: <Award />, view: 'sajda' },
-    { title: 'Progress', icon: <BookMarked />, view: 'progress' },
+    { title: 'Home', icon: <Home size={20} />, view: 'home' },
+    { title: 'Surahs', icon: <BookOpen size={20} />, view: 'surah' },
+    { title: 'Juz', icon: <Layers size={20} />, view: 'juz' },
+    { title: 'Manzil', icon: <Layout size={20} />, view: 'manzil' },
+    { title: 'Ruku', icon: <Grid3X3 size={20} />, view: 'ruku' },
+    { title: 'Page', icon: <FileText size={20} />, view: 'page' },
+    { title: 'Hizb', icon: <ScrollText size={20} />, view: 'hizb' },
+    { title: 'Sajda', icon: <Award size={20} />, view: 'sajda' },
+    { title: 'Progress', icon: <BookMarked size={20} />, view: 'progress' },
   ];
 
   return (
-    <div className="sidebar-container">
-      {/* Header - Always visible */}
-      <header className={`header ${isDarkMode ? 'dark' : ''}`}>
-        <div className="header-logo">
-          <div className="app-title">Wuran</div>
-        </div>
-        <div className="header-actions">
-          {showSearchBar ? (
-            <div className="search-container">
-              <input
-                type="text"
+    <>
+      <Navbar expand={expand} className={`navbar ${isDarkMode ? 'dark' : ''}`}>
+        <Container fluid>
+          <Navbar.Brand className="app-title">Wuran</Navbar.Brand>
+          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
+          <Navbar.Offcanvas
+            id={`offcanvasNavbar-expand-${expand}`}
+            aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
+            placement="start"
+          >
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
+                Wuran
+              </Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              <Nav className="flex-column">
+                {navItems.map((item, index) => (
+                  <Nav.Link
+                    key={index}
+                    onClick={() => setView(item.view)}
+                    className="nav-item"
+                  >
+                    <span className="nav-icon">{item.icon}</span>
+                    {item.title}
+                  </Nav.Link>
+                ))}
+                <NavDropdown
+                  title={
+                    <span>
+                      <span className="nav-icon">
+                        <Bookmark size={20} />
+                      </span>
+                      Bookmarks
+                    </span>
+                  }
+                  id={`offcanvasNavbarDropdown-expand-${expand}`}
+                >
+                  {bookmarks.length > 0 ? (
+                    bookmarks.map((bookmark, index) => (
+                      <NavDropdown.Item
+                        key={index}
+                        onClick={() => handleBookmarkClick(bookmark)}
+                      >
+                        Surah {bookmark.surah}:{bookmark.ayah}
+                      </NavDropdown.Item>
+                    ))
+                  ) : (
+                    <NavDropdown.Item disabled>No Bookmarks</NavDropdown.Item>
+                  )}
+                </NavDropdown>
+                <Nav.Link
+                  onClick={() => setView('settings')}
+                  className="nav-item"
+                >
+                  <span className="nav-icon">
+                    <Settings size={20} />
+                  </span>
+                  Settings
+                </Nav.Link>
+              </Nav>
+            </Offcanvas.Body>
+          </Navbar.Offcanvas>
+          <div className="navbar-actions">
+            <Form className="d-flex" onSubmit={handleSearch}>
+              <Form.Control
+                type="search"
+                placeholder="Search"
+                className="me-2"
+                aria-label="Search"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
-                onKeyPress={handleSearch}
-                placeholder="Search..."
-                className="search-input"
-                autoFocus
               />
-              <button
-                onClick={() => setShowSearchBar(false)}
-                className="search-close-btn"
-              >
-                ×
-              </button>
-            </div>
-          ) : (
-            <button onClick={() => setShowSearchBar(true)} className="icon-button">
-              <Search size={20} />
-            </button>
-          )}
-          <button onClick={toggleDarkMode} className="icon-button">
-            {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-          </button>
-        </div>
-      </header>
-
-      {/* Main content with sidebar */}
-      <div className="main-container">
-        {/* Sidebar */}
-        <aside className={`sidebar ${isExpanded ? 'expanded' : 'collapsed'} ${isDarkMode ? 'dark' : ''}`}>
-          {/* Toggle button */}
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="toggle-button"
-          >
-            {isExpanded ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
-          </button>
-
-          {/* Navigation Items */}
-          <nav className="nav-items">
-            {navItems.map((item, index) => (
-              <div
-                key={index}
-                onClick={() => setView(item.view)}
-                className="nav-item"
-              >
-                <div className="nav-icon">{item.icon}</div>
-                {isExpanded && <span className="nav-title">{item.title}</span>}
-              </div>
-            ))}
-
-            {/* Bookmarks Section */}
-            <div className="bookmarks-section">
-              <div className="bookmarks-header">
-                <div className="nav-icon">
-                  <Bookmark />
-                </div>
-                {isExpanded && <span className="nav-title">Bookmarks</span>}
-              </div>
-
-              {isExpanded && bookmarks.length > 0 && (
-                <div className="bookmarks-list">
-                  {bookmarks.map((bookmark, index) => (
-                    <div
-                      key={index}
-                      className="bookmark-item"
-                      onClick={() => handleBookmarkClick(bookmark)}
-                    >
-                      Surah {bookmark.surah}:{bookmark.ayah}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </nav>
-
-          {/* Settings at bottom */}
-          <div
-            onClick={() => setView('settings')}
-            className="settings-button"
-          >
-            <div className="nav-icon">
-              <Settings />
-            </div>
-            {isExpanded && <span className="nav-title">Settings</span>}
+              <Button variant="outline-success" type="submit">
+                <Search sizeLoader size={20} />
+              </Button>
+            </Form>
+            <Button
+              variant="outline-secondary"
+              onClick={toggleDarkMode}
+              className="ms-2"
+            >
+              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+            </Button>
           </div>
-        </aside>
-
-        {/* Content area */}
-        <main className={`content-area ${isDarkMode ? 'dark' : ''}`}>
-          <div className="content-wrapper">{children}</div>
-        </main>
+        </Container>
+      </Navbar>
+      <div className="content-area">
+        <div className="content-wrapper">{children}</div>
       </div>
-    </div>
+    </>
   );
 };
 
