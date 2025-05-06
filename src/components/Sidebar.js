@@ -65,7 +65,7 @@ const Sidebar = ({
           >
             <Menu size={20} />
           </button>
-          <div className="app-title">Wuran</div>
+          <div className="app-title">Al Quran</div>
         </div>
         <div className="header-actions">
      
