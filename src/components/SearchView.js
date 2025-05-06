@@ -10,6 +10,7 @@ function SearchView({ query, editions, settings, setView, setSelectedSurah }) {
       const fetchSearchResults = async () => {
         try {
           let url = '';
+          // eslint-disable-next-line no-undef
           const edition = editions.find(ed => ed.includes('en')) || 'en';
           if (searchType === 'surah' && selectedSurah) {
             url = `http://api.alquran.cloud/v1/search/${query}/${selectedSurah}/${edition}`;
