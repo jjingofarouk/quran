@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import SurahList from './components/SurahList';
 import AyahView from './components/AyahView';
@@ -14,7 +15,6 @@ import ProgressTracker from './components/ProgressTracker';
 import './App.css';
 
 function App() {
-  const [view, setView] = useState('surah');
   const [selectedSurah, setSelectedSurah] = useState(null);
   const [selectedJuz, setSelectedJuz] = useState(null);
   const [selectedManzil, setSelectedManzil] = useState(null);
@@ -55,158 +55,188 @@ function App() {
   }, [bookmarks, notes, progress]);
 
   return (
-    <div className={`app-container ${settings.theme}`}>
-      <Sidebar
-        setView={setView}
-        setSearchQuery={setSearchQuery}
-        bookmarks={bookmarks}
-        setSelectedSurah={setSelectedSurah}
-        isDarkMode={settings.theme === 'dark'}
-        toggleDarkMode={toggleDarkMode}
-      >
-        <div className="main-content">
-          {view === 'home' && (
-            <div className="welcome-message">
-              <h1>Welcome to the Holy Quran</h1>
-              <p>Select a section from the sidebar to begin exploring the Quran.</p>
-            </div>
-          )}
-          {view === 'surah' && (
-            <SurahList
-              setSelectedSurah={setSelectedSurah}
-              setView={setView}
-              editions={editions}
-            />
-          )}
-          {view === 'ayah' && (
-            <AyahView
-              surah={selectedSurah}
-              editions={editions}
-              settings={settings}
-              bookmarks={bookmarks}
-              setBookmarks={setBookmarks}
-              notes={notes}
-              setNotes={setNotes}
-              progress={progress}
-              setProgress={setProgress}
-              setView={setView}
-            />
-          )}
-          {view === 'juz' && (
-            <JuzView
-              selectedJuz={selectedJuz}
-              setSelectedJuz={setSelectedJuz}
-              editions={editions}
-             bnbsettings={settings}
-              bookmarks={bookmarks}
-              setBookmarks={setBookmarks}
-              notes={notes}
-              setNotes={setNotes}
-              progress={progress}
-              setProgress={setProgress}
-              setView={setView}
-            />
-          )}
-          {view === 'manzil' && (
-            <ManzilView
-              selectedManzil={selectedManzil}
-              setSelectedManzil={setSelectedManzil}
-              editions={editions}
-              settings={settings}
-              bookmarks={bookmarks}
-              setBookmarks={setBookmarks}
-              notes={notes}
-              setNotes={setNotes}
-              progress={progress}
-              setProgress={setProgress}
-              setView={setView}
-            />
-          )}
-          {view === 'ruku' && (
-            <RukuView
-              selectedRuku={selectedRuku}
-              setSelectedRuku={setSelectedRuku}
-              editions={editions}
-              settings={settings}
-              bookmarks={bookmarks}
-              setBookmarks={setBookmarks}
-              notes={notes}
-              setNotes={setNotes}
-              progress={progress}
-              setProgress={setProgress}
-              setView={setView}
-            />
-          )}
-          {view === 'page' && (
-            <PageView
-              selectedPage={selectedPage}
-              setSelectedPage={setSelectedPage}
-              editions={editions}
-              settings={settings}
-              bookmarks={bookmarks}
-              setBookmarks={setBookmarks}
-              notes={notes}
-              setNotes={setNotes}
-              progress={progress}
-              setProgress={setProgress}
-              setView={setView}
-            />
-          )}
-          {view === 'hizb' && (
-            <HizbQuarterView
-              selectedHizb={selectedHizb}
-              setSelectedHizb={setSelectedHizb}
-              editions={editions}
-              settings={settings}
-              bookmarks={bookmarks}
-              setBookmarks={setBookmarks}
-              notes={notes}
-              setNotes={setNotes}
-              progress={progress}
-              setProgress={setProgress}
-              setView={setView}
-            />
-          )}
-          {view === 'sajda' && (
-            <SajdaView
-              editions={editions}
-              settings={settings}
-              bookmarks={bookmarks}
-              setBookmarks={setBookmarks}
-              notes={notes}
-              setNotes={setNotes}
-              progress={progress}
-              setProgress={setProgress}
-              setView={setView}
-            />
-          )}
-          {view === 'search' && (
-            <SearchView
-              query={searchQuery}
-              editions={editions}
-              settings={settings}
-              setView={setView}
-              setSelectedSurah={setSelectedSurah}
-            />
-          )}
-          {view === 'settings' && (
-            <Settings
-              editions={editions}
-              setEditions={setEditions}
-              settings={settings}
-              setSettings={setSettings}
-            />
-          )}
-          {view === 'progress' && (
-            <ProgressTracker
-              progress={progress}
-              setProgress={setProgress}
-              setView={setView}
-            />
-          )}
-        </div>
-      </Sidebar>
-    </div>
+    <Router>
+      <div className={`app-container ${settings.theme}`}>
+        <Sidebar
+          setSearchQuery={setSearchQuery}
+          bookmarks={bookmarks}
+          setSelectedSurah={setSelectedSurah}
+          isDarkMode={settings.theme === 'dark'}
+          toggleDarkMode={toggleDarkMode}
+        >
+          <div className="main-content">
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <div className="welcome-message">
+                    <h1>Welcome to the Holy Quran</h1>
+                    <p>Select a section from the sidebar to begin exploring the Quran.</p>
+                  </div>
+                }
+              />
+              <Route
+                path="/surah"
+                element={
+                  <SurahList
+                    setSelectedSurah={setSelectedSurah}
+                    editions={editions}
+                  />
+                }
+              />
+              <Route
+                path="/ayah/:surahNumber"
+                element={
+                  <AyahView
+                    surah={selectedSurah}
+                    editions={editions}
+                    settings={settings}
+                    bookmarks={bookmarks}
+                    setBookmarks={setBookmarks}
+                    notes={notes}
+                    setNotes={setNotes}
+                    progress={progress}
+                    setProgress={setProgress}
+                  />
+                }
+              />
+              <Route
+                path="/juz/:juzNumber"
+                element={
+                  <JuzView
+                    selectedJuz={selectedJuz}
+                    setSelectedJuz={setSelectedJuz}
+                    editions={editions}
+                    settings={settings}
+                    bookmarks={bookmarks}
+                    setBookmarks={setBookmarks}
+                    notes={notes}
+                    setNotes={setNotes}
+                    progress={progress}
+                    setProgress={setProgress}
+                  />
+                }
+              />
+              <Route
+                path="/manzil/:manzilNumber"
+                element={
+                  <ManzilView
+                    selectedManzil={selectedManzil}
+                    setSelectedManzil={setSelectedManzil}
+                    editions={editions}
+                    settings={settings}
+                    bookmarks={bookmarks}
+                    setBookmarks={setBookmarks}
+                    notes={notes}
+                    setNotes={setNotes}
+                    progress={progress}
+                    setProgress={setProgress}
+                  />
+                }
+              />
+              <Route
+                path="/ruku/:rukuNumber"
+                element={
+                  <RukuView
+                    selectedRuku={selectedRuku}
+                    setSelectedRuku={setSelectedRuku}
+                    editions={editions}
+                    settings={settings}
+                    bookmarks={bookmarks}
+                    setBookmarks={setBookmarks}
+                    notes={notes}
+                    setNotes={setNotes}
+                    progress={progress}
+                    setProgress={setProgress}
+                  />
+                }
+              />
+              <Route
+                path="/page/:pageNumber"
+                element={
+                  <PageView
+                    selectedPage={selectedPage}
+                    setSelectedPage={setSelectedPage}
+                    editions={editions}
+                    settings={settings}
+                    bookmarks={bookmarks}
+                    setBookmarks={setBookmarks}
+                    notes={notes}
+                    setNotes={setNotes}
+                    progress={progress}
+                    setProgress={setProgress}
+                  />
+                }
+              />
+              <Route
+                path="/hizb/:hizbNumber"
+                element={
+                  <HizbQuarterView
+                    selectedHizb={selectedHizb}
+                    setSelectedHizb={setSelectedHizb}
+                    editions={editions}
+                    settings={settings}
+                    bookmarks={bookmarks}
+                    setBookmarks={setBookmarks}
+                    notes={notes}
+                    setNotes={setNotes}
+                    progress={progress}
+                    setProgress={setProgress}
+                  />
+                }
+              />
+              <Route
+                path="/sajda"
+                element={
+                  <SajdaView
+                    editions={editions}
+                    settings={settings}
+                    bookmarks={bookmarks}
+                    setBookmarks={setBookmarks}
+                    notes={notes}
+                    setNotes={setNotes}
+                    progress={progress}
+                    setProgress={setProgress}
+                  />
+                }
+              />
+              <Route
+                path="/search"
+                element={
+                  <SearchView
+                    query={searchQuery}
+                    editions={editions}
+                    settings={settings}
+                    setSelectedSurah={setSelectedSurah}
+                  />
+                }
+              />
+              <Route
+                path="/settings"
+                element={
+                  <Settings
+                    editions={editions}
+                    setEditions={setEditions}
+                    settings={settings}
+                    setSettings={setSettings}
+                  />
+                }
+              />
+              <Route
+                path="/progress"
+                element={
+                  <ProgressTracker
+                    progress={progress}
+                    setProgress={setProgress}
+                  />
+                }
+              />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </div>
+        </Sidebar>
+      </div>
+    </Router>
   );
 }
 
