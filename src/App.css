@@ -15,6 +15,7 @@
   --font-amiri: 'Amiri', serif;
   --sidebar-width: 280px;
   --header-height: 60px;
+  --header-dark-brown: #3C2F2F;
 }
 
 /* Reset default styles */
@@ -50,7 +51,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--primary-green);
+  background-color: var(--header-dark-brown);
   padding: 0 1rem;
   height: var(--header-height);
   box-shadow: 0 2px 4px var(--shadow);
@@ -60,7 +61,7 @@
 }
 
 .header.dark {
-  background-color: #388E3C;
+  background-color: #2A1F1F;
 }
 
 .header-logo {
