@@ -13,6 +13,9 @@
   --border-radius: 8px;
   --font-roboto: 'Roboto', sans-serif;
   --font-amiri: 'Amiri', serif;
+  --sidebar-width-expanded: 250px;
+  --sidebar-width-collapsed: 70px;
+  --header-height: 60px;
 }
 
 /* Reset default styles */
@@ -25,8 +28,6 @@
 /* App container */
 .app-container {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   font-family: var(--font-roboto);
   background-color: var(--primary-beige);
   color: var(--text-dark);
@@ -39,40 +40,256 @@
   color: var(--text-light);
 }
 
-/* Navbar styles */
-.navbar {
-  background-color: var(--primary-green);
-  padding: 1rem;
+/* Sidebar container */
+.sidebar-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Header styles */
+.header {
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  background-color: var(--primary-green);
+  padding: 0 1rem;
+  height: var(--header-height);
   box-shadow: 0 2px 4px var(--shadow);
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
-.navbar button, .navbar select {
-  background-color: var(--primary-beige);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: var(--border-radius);
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.header.dark {
+  background-color: #388E3C; /* Slightly darker green for dark mode */
 }
 
-.navbar button:hover, .navbar select:hover {
+.header-logo {
+  display: flex;
+  align-items: center;
+}
+
+.app-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-light);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  border: 1px solid var(--primary-green);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  background-color: var(--primary-beige);
+  color: var(--text-dark);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #388E3C;
+  box-shadow: 0 0 4px var(--shadow);
+}
+
+.search-close-btn {
+  position: absolute;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-dark);
+  font-size: 1rem;
+}
+
+.icon-button {
+  background-color: var(--primary-beige);
+  border: none;
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.icon-button:hover {
   background-color: #E0E0B0;
 }
 
-/* Main content */
-.main-content {
+/* Main container */
+.main-container {
+  display: flex;
   flex: 1;
-  padding: 1.5rem;
+  overflow: hidden;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: var(--sidebar-width-expanded);
+  background-color: #FFFFFF;
+  box-shadow: 2px 0 4px var(--shadow);
+  transition: width 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.sidebar.collapsed {
+  width: var(--sidebar-width-collapsed);
+}
+
+.sidebar.dark {
+  background-color: #2E2E2E;
+}
+
+.toggle-button {
+  background: none;
+  border: none;
+  padding: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dark);
+}
+
+.sidebar.dark .toggle-button {
+  color: var(--text-light);
+}
+
+.nav-items {
+  flex: 1;
+  padding: 1rem 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.nav-item:hover {
+  background-color: var(--primary-beige);
+}
+
+.sidebar.dark .nav-item:hover {
+  background-color: #3A3A3A;
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  color: var(--primary-green);
+}
+
+.nav-title {
+  margin-left: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.bookmarks-section {
+  margin-top: 1rem;
+  padding: 0 1rem;
+}
+
+.bookmarks-header {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 0;
+  font-weight: 500;
+}
+
+.bookmarks-list {
+  margin-top: 0.5rem;
+}
+
+.bookmark-item {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.bookmark-item:hover {
+  background-color: var(--primary-beige);
+}
+
+.sidebar.dark .bookmark-item:hover {
+  background-color: #3A3A3A;
+}
+
+.settings-button {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: auto;
+}
+
+.settings-button:hover {
+  background-color: var(--primary-beige);
+}
+
+.sidebar.dark .settings-button:hover {
+  background-color: #3A3A3A;
+}
+
+/* Content area */
+.content-area {
+  flex: 1;
+  background-color: var(--primary-beige);
+  overflow-y: auto;
+  transition: background-color 0.3s ease;
+}
+
+.content-area.dark {
+  background-color: var(--background-dark);
+}
+
+.content-wrapper {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 1.5rem;
   width: 100%;
+}
+
+/* Main content (from App.js) */
+.main-content {
+  flex: 1;
+}
+
+/* Welcome message */
+.welcome-message {
+  text-align: center;
+  padding: 2rem;
+}
+
+.welcome-message h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--primary-green);
+}
+
+.welcome-message p {
+  font-size: 1.2rem;
 }
 
 /* Surah list */
@@ -124,7 +341,8 @@
   margin-bottom: 1rem;
 }
 
-.ayah-translation, .ayah-tafseer {
+.ayah-translation,
+.ayah-tafseer {
   font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 1rem;
@@ -146,7 +364,12 @@
 }
 
 /* Juz, Manzil, Ruku, Page, Hizb, Sajda views */
-.juz-view, .manzil-view, .ruku-view, .page-view, .hizb-quarter-view, .sajda-view {
+.juz-view,
+.manzil-view,
+.ruku-view,
+.page-view,
+.hizb-quarter-view,
+.sajda-view {
   background-color: #FFFFFF;
   border-radius: var(--border-radius);
   padding: 1.5rem;
@@ -184,7 +407,8 @@
   font-weight: 500;
 }
 
-.settings-view select, .settings-view input {
+.settings-view select,
+.settings-view input {
   width: 100%;
   padding: 0.5rem;
   border: 1px solid var(--primary-green);
@@ -215,9 +439,15 @@
 }
 
 /* Font size settings */
-.font-small .ayah-text { font-size: 1.4rem; }
-.font-medium .ayah-text { font-size: 1.8rem; }
-.font-large .ayah-text { font-size: 2.2rem; }
+.font-small .ayah-text {
+  font-size: 1.4rem;
+}
+.font-medium .ayah-text {
+  font-size: 1.8rem;
+}
+.font-large .ayah-text {
+  font-size: 2.2rem;
+}
 
 /* Tajweed styles */
 .tajweed .ayah-text span.tajweed-rule {
@@ -226,21 +456,20 @@
 
 /* Responsive design */
 @media (max-width: 768px) {
-  .main-content {
+  .sidebar {
+    width: var(--sidebar-width-collapsed);
+  }
+
+  .sidebar.expanded {
+    width: var(--sidebar-width-expanded);
+  }
+
+  .content-wrapper {
     padding: 1rem;
   }
 
   .surah-list {
     grid-template-columns: 1fr;
-  }
-
-  .navbar {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .navbar button, .navbar select {
-    width: 100%;
   }
 
   .ayah-text {
@@ -250,12 +479,35 @@
 }
 
 @media (max-width: 480px) {
+  .sidebar {
+    width: var(--sidebar-width-collapsed);
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .app-title {
+    font-size: 1.2rem;
+  }
+
+  .search-input {
+    font-size: 0.9rem;
+  }
+
+  .icon-button {
+    padding: 0.4rem;
+  }
+
   .ayah-text {
     font-size: 1.4rem;
     line-height: 2;
   }
 
-  .ayah-translation, .ayah-tafseer {
+  .ayah-translation,
+  .ayah-tafseer {
     font-size: 0.9rem;
   }
 
@@ -270,8 +522,12 @@
 
 /* Animation for view transitions */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .main-content > * {
