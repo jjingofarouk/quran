@@ -17,7 +17,7 @@ import {
   Award,
   FileText,
 } from 'lucide-react';
-import './App.css'; // Import App.css instead of Sidebar.css
+import '../App.css'; // Import App.css instead of Sidebar.css
 
 const Sidebar = ({
   setView,
