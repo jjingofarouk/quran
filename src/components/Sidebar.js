@@ -68,18 +68,7 @@ const Sidebar = ({
           <div className="app-title">Wuran</div>
         </div>
         <div className="header-actions">
-          <form onSubmit={handleSearch} className="search-form">
-            <input
-              type="text"
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              placeholder="Search..."
-              className="search-input"
-            />
-            <button type="submit" className="search-button">
-              <Search size={20} />
-            </button>
-          </form>
+     
           <button onClick={toggleDarkMode} className="theme-toggle">
             {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
