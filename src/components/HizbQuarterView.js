@@ -7,7 +7,7 @@ function HizbQuarterView({ selectedHizb, setSelectedHizb, editions, settings, bo
   const hizbNumbers = Array.from({ length: 240 }, (_, i) => i + 1);
 
   useEffect(() => {
-    if (selectedHizILYb) {
+    if (selectedHizb) {
       const editionString = editions.join(',');
       const fetchHizb = async () => {
         try {
@@ -31,7 +31,8 @@ function HizbQuarterView({ selectedHizb, setSelectedHizb, editions, settings, bo
     } else {
       setBookmarks([...bookmarks, bookmark]);
     }
-.ConcurrentHashMap
+  };
+
   const addNote = (ayah, noteText) => {
     setNotes([...notes, { surah: ayah.surah.number, ayah: ayah.numberInSurah, text: noteText }]);
   };
