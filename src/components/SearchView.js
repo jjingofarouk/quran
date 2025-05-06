@@ -11,7 +11,7 @@ function SearchView({ query, editions, settings, setView, setSelectedSurah }) {
         try {
           let url = '';
           // eslint-disable-next-line no-undef
-          const edition = editions.find(ed => ed.includes('en')) || 'en';
+          const edition = editions && editions.length > 0 ? editions.find(ed => ed.includes('en')) || 'en' : 'en';
           if (searchType === 'surah' && selectedSurah) {
             url = `http://api.alquran.cloud/v1/search/${query}/${selectedSurah}/${edition}`;
           } else if (searchType === 'arabic') {
@@ -21,11 +21,11 @@ function SearchView({ query, editions, settings, setView, setSelectedSurah }) {
           }
           const res = await fetch(url);
           const data = await res.json();
-          setResults(data.data.matches);
+          setResults(data.data.matches || []);
           localStorage.setItem(`search_${query}_${searchType}_${selectedSurah}_${edition}`, JSON.stringify(data));
         } catch (e) {
           const cached = localStorage.getItem(`search_${query}_${searchType}_${selectedSurah}_${edition}`);
-          if (cached) setResults(JSON.parse(cached).data.matches);
+          if (cached) setResults(JSON.parse(cached).data.matches || []);
         }
       };
       fetchSearchResults();
