@@ -22,7 +22,7 @@ import {
   Award,
   FileText,
 } from 'lucide-react';
-import './App.css';
+import '../App.css';
 
 const Sidebar = ({
   setView,
