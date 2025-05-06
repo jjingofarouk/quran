@@ -1,19 +1,279 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
 
+/* Root variables for colors and fonts */
+:root {
+  --primary-beige: #F5F5DC;
+  --primary-green: #4CAF50;
+  --text-dark: #2E2E2E;
+  --text-light: #FFFFFF;
+  --background-dark: #1A1A1A;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --border-radius: 8px;
+  --font-roboto: 'Roboto', sans-serif;
+  --font-amiri: 'Amiri', serif;
+}
+
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* App container */
 .app-container {
-  @apply min-h-screen transition-colors duration-300;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-roboto);
+  background-color: var(--primary-beige);
+  color: var(--text-dark);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.app-container.light {
-  @apply bg-gray-100 text-gray-900;
-}
-
+/* Dark theme */
 .app-container.dark {
-  @apply bg-gray-900 text-white;
+  background-color: var(--background-dark);
+  color: var(--text-light);
 }
 
+/* Navbar styles */
+.navbar {
+  background-color: var(--primary-green);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar button, .navbar select {
+  background-color: var(--primary-beige);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.navbar button:hover, .navbar select:hover {
+  background-color: #E0E0B0;
+}
+
+/* Main content */
 .main-content {
-  @apply container mx-auto p-4 max-w-7xl;
+  flex: 1;
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Surah list */
+.surah-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.surah-item {
+  background-color: #FFFFFF;
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 4px var(--shadow);
+}
+
+.surah-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px var(--shadow);
+}
+
+.surah-item h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.surah-item p {
+  font-family: var(--font-amiri);
+  font-size: 1.5rem;
+  color: var(--primary-green);
+}
+
+/* Ayah view */
+.ayah-view {
+  background-color: #FFFFFF;
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px var(--shadow);
+}
+
+.ayah-text {
+  font-family: var(--font-amiri);
+  font-size: 1.8rem;
+  line-height: 2.5;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.ayah-translation, .ayah-tafseer {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.ayah-actions button {
+  background-color: var(--primary-green);
+  color: var(--text-light);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  margin-right: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.ayah-actions button:hover {
+  background-color: #388E3C;
+}
+
+/* Juz, Manzil, Ruku, Page, Hizb, Sajda views */
+.juz-view, .manzil-view, .ruku-view, .page-view, .hizb-quarter-view, .sajda-view {
+  background-color: #FFFFFF;
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px var(--shadow);
+}
+
+/* Search view */
+.search-view {
+  background-color: #FFFFFF;
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px var(--shadow);
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--primary-green);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Settings view */
+.settings-view {
+  background-color: #FFFFFF;
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px var(--shadow);
+}
+
+.settings-view label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.settings-view select, .settings-view input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--primary-green);
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Progress tracker */
+.progress-tracker {
+  background-color: #FFFFFF;
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px var(--shadow);
+}
+
+.progress-bar {
+  background-color: var(--primary-beige);
+  height: 20px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.progress-fill {
+  background-color: var(--primary-green);
+  height: 100%;
+  transition: width 0.5s ease;
+}
+
+/* Font size settings */
+.font-small .ayah-text { font-size: 1.4rem; }
+.font-medium .ayah-text { font-size: 1.8rem; }
+.font-large .ayah-text { font-size: 2.2rem; }
+
+/* Tajweed styles */
+.tajweed .ayah-text span.tajweed-rule {
+  color: #D32F2F; /* Red for tajweed rules */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem;
+  }
+
+  .surah-list {
+    grid-template-columns: 1fr;
+  }
+
+  .navbar {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .navbar button, .navbar select {
+    width: 100%;
+  }
+
+  .ayah-text {
+    font-size: 1.6rem;
+    line-height: 2.2;
+  }
+}
+
+@media (max-width: 480px) {
+  .ayah-text {
+    font-size: 1.4rem;
+    line-height: 2;
+  }
+
+  .ayah-translation, .ayah-tafseer {
+    font-size: 0.9rem;
+  }
+
+  .surah-item h3 {
+    font-size: 1rem;
+  }
+
+  .surah-item p {
+    font-size: 1.2rem;
+  }
+}
+
+/* Animation for view transitions */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.main-content > * {
+  animation: fadeIn 0.5s ease-in;
 }
