@@ -69,15 +69,6 @@ function App() {
               <Route
                 path="/"
                 element={
-                  <div className="welcome-message">
-                    <h1>Welcome to the Holy Quran</h1>
-                    <p>Select a section from the sidebar to begin exploring the Quran.</p>
-                  </div>
-                }
-              />
-              <Route
-                path="/surah"
-                element={
                   <SurahList
                     setSelectedSurah={setSelectedSurah}
                     editions={editions}
