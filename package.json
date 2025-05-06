@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^14.4.3",
     "autoprefixer": "^10.4.16",
     "axios": "^1.6.2",
+    "lucide-react": "^0.367.0",
     "postcss": "^8.4.31",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
