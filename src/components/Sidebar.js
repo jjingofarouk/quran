@@ -1,25 +1,33 @@
 import React, { useState } from 'react';
-import { 
-  Search, 
-  BookOpen, 
-  Bookmark, 
-  Settings, 
-  Sun, 
-  Moon, 
-  ChevronLeft, 
-  ChevronRight, 
-  Home, 
-  Layers, 
-  BookMarked, 
-  Grid3X3, 
-  Layout, 
-  ScrollText, 
-  Award, 
-  FileText 
+import {
+  Search,
+  BookOpen,
+  Bookmark,
+  Settings,
+  Sun,
+  Moon,
+  ChevronLeft,
+  ChevronRight,
+  Home,
+  Layers,
+  BookMarked,
+  Grid3X3,
+  Layout,
+  ScrollText,
+  Award,
+  FileText,
 } from 'lucide-react';
-import './Sidebar.css';
+import './App.css'; // Import App.css instead of Sidebar.css
 
-const Sidebar = ({ setView, setSearchQuery, bookmarks, setSelectedSurah, isDarkMode, toggleDarkMode }) => {
+const Sidebar = ({
+  setView,
+  setSearchQuery,
+  bookmarks,
+  setSelectedSurah,
+  isDarkMode,
+  toggleDarkMode,
+  children, // Add children prop
+}) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const [searchInput, setSearchInput] = useState('');
   const [showSearchBar, setShowSearchBar] = useState(false);
@@ -68,7 +76,7 @@ const Sidebar = ({ setView, setSearchQuery, bookmarks, setSelectedSurah, isDarkM
                 className="search-input"
                 autoFocus
               />
-              <button 
+              <button
                 onClick={() => setShowSearchBar(false)}
                 className="search-close-btn"
               >
@@ -91,27 +99,23 @@ const Sidebar = ({ setView, setSearchQuery, bookmarks, setSelectedSurah, isDarkM
         {/* Sidebar */}
         <aside className={`sidebar ${isExpanded ? 'expanded' : 'collapsed'} ${isDarkMode ? 'dark' : ''}`}>
           {/* Toggle button */}
-          <button 
+          <button
             onClick={() => setIsExpanded(!isExpanded)}
             className="toggle-button"
           >
             {isExpanded ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
           </button>
-          
+
           {/* Navigation Items */}
           <nav className="nav-items">
             {navItems.map((item, index) => (
-              <div 
+              <div
                 key={index}
                 onClick={() => setView(item.view)}
                 className="nav-item"
               >
-                <div className="nav-icon">
-                  {item.icon}
-                </div>
-                {isExpanded && (
-                  <span className="nav-title">{item.title}</span>
-                )}
+                <div className="nav-icon">{item.icon}</div>
+                {isExpanded && <span className="nav-title">{item.title}</span>}
               </div>
             ))}
 
@@ -123,7 +127,7 @@ const Sidebar = ({ setView, setSearchQuery, bookmarks, setSelectedSurah, isDarkM
                 </div>
                 {isExpanded && <span className="nav-title">Bookmarks</span>}
               </div>
-              
+
               {isExpanded && bookmarks.length > 0 && (
                 <div className="bookmarks-list">
                   {bookmarks.map((bookmark, index) => (
@@ -139,30 +143,22 @@ const Sidebar = ({ setView, setSearchQuery, bookmarks, setSelectedSurah, isDarkM
               )}
             </div>
           </nav>
-          
+
           {/* Settings at bottom */}
-          <div 
+          <div
             onClick={() => setView('settings')}
             className="settings-button"
           >
             <div className="nav-icon">
               <Settings />
             </div>
-            {isExpanded && (
-              <span className="nav-title">Settings</span>
-            )}
+            {isExpanded && <span className="nav-title">Settings</span>}
           </div>
         </aside>
 
-        {/* Content area placeholder */}
+        {/* Content area */}
         <main className={`content-area ${isDarkMode ? 'dark' : ''}`}>
-          <div className="content-wrapper">
-            {/* Your main content will be rendered here */}
-            <div className="welcome-message">
-              <h1>Welcome to Wuran</h1>
-              <p>Select a section from the sidebar to begin exploring the Quran.</p>
-            </div>
-          </div>
+          <div className="content-wrapper">{children}</div>
         </main>
       </div>
     </div>
