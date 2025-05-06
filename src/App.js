@@ -97,7 +97,7 @@ function App() {
               selectedJuz={selectedJuz}
               setSelectedJuz={setSelectedJuz}
               editions={editions}
-              settings={settings}
+             bnbsettings={settings}
               bookmarks={bookmarks}
               setBookmarks={setBookmarks}
               notes={notes}
