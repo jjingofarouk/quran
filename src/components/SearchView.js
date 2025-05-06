@@ -68,7 +68,7 @@ function SearchView({ query, editions, settings, setView, setSelectedSurah }) {
           </select>
         )}
       </div>
-      <h2 className="text-xl font-bold mb-4">Search Results for "{query}"</h2>
+      <h2 className="text-xl font-bold mb-4">Search Results for: {query}</h2>
       {results.length === 0 && <p>No results found.</p>}
       {results.map((ayah, index) => (
         <div 
