@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Search,
   BookOpen,
@@ -19,7 +20,6 @@ import {
 import '../App.css';
 
 const Sidebar = ({
-  setView,
   setSearchQuery,
   bookmarks,
   setSelectedSurah,
@@ -29,30 +29,31 @@ const Sidebar = ({
 }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchInput, setSearchInput] = useState('');
+  const navigate = useNavigate();
 
   const handleSearch = (e) => {
     e.preventDefault();
     setSearchQuery(searchInput);
-    setView('search');
+    navigate('/search');
     setIsSidebarOpen(false);
   };
 
   const handleBookmarkClick = (bookmark) => {
     setSelectedSurah({ number: bookmark.surah });
-    setView('ayah');
+    navigate(`/ayah/${bookmark.surah}`);
     setIsSidebarOpen(false);
   };
 
   const navItems = [
-    { title: 'Home', icon: <Home size={20} />, view: 'home' },
-    { title: 'Surahs', icon: <BookOpen size={20} />, view: 'surah' },
-    { title: 'Juz', icon: <Layers size={20} />, view: 'juz' },
-    { title: 'Manzil', icon: <Layout size={20} />, view: 'manzil' },
-    { title: 'Ruku', icon: <Grid3X3 size={20} />, view: 'ruku' },
-    { title: 'Page', icon: <FileText size={20} />, view: 'page' },
-    { title: 'Hizb', icon: <ScrollText size={20} />, view: 'hizb' },
-    { title: 'Sajda', icon: <Award size={20} />, view: 'sajda' },
-    { title: 'Progress', icon: <BookMarked size={20} />, view: 'progress' },
+    { title: 'Home', icon: <Home size={20} />, path: '/' },
+    { title: 'Surahs', icon: <BookOpen size={20} />, path: '/surah' },
+    { title: 'Juz', icon: <Layers size={20} />, path: '/juz/1' },
+    { title: 'Manzil', icon: <Layout size={20} />, path: '/manzil/1' },
+    { title: 'Ruku', icon: <Grid3X3 size={20} />, path: '/ruku/1' },
+    { title: 'Page', icon: <FileText size={20} />, path: '/page/1' },
+    { title: 'Hizb', icon: <ScrollText size={20} />, path: '/hizb/1' },
+    { title: 'Sajda', icon: <Award size={20} />, path: '/sajda' },
+    { title: 'Progress', icon: <BookMarked size={20} />, path: '/progress' },
   ];
 
   return (
@@ -68,7 +69,18 @@ const Sidebar = ({
           <div className="app-title">Al Quran</div>
         </div>
         <div className="header-actions">
-     
+          <form onSubmit={handleSearch} className="search-form">
+            <input
+              type="text"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              placeholder="Search..."
+              className="search-input"
+            />
+            <button type="submit" className="search-button">
+              <Search size={20} />
+            </button>
+          </form>
           <button onClick={toggleDarkMode} className="theme-toggle">
             {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
@@ -82,7 +94,7 @@ const Sidebar = ({
               <button
                 key={index}
                 onClick={() => {
-                  setView(item.view);
+                  navigate(item.path);
                   setIsSidebarOpen(false);
                 }}
                 className="nav-item"
@@ -116,7 +128,7 @@ const Sidebar = ({
             </div>
             <button
               onClick={() => {
-                setView('settings');
+                navigate('/settings');
                 setIsSidebarOpen(false);
               }}
               className="nav-item settings-item"
