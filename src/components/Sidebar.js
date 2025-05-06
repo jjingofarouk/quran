@@ -16,7 +16,7 @@ import {
   FileText,
   Menu,
 } from 'lucide-react';
-import './App.css';
+import '../App.css';
 
 const Sidebar = ({
   setView,
